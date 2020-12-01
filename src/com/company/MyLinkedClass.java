@@ -1,10 +1,10 @@
 package com.company;
 
-public class MyLinkedClass<E> implements jav.sadasd.SimpleLinkedList<E> {
-//
+public class MyLinkedClass<E> implements SimpleLinkedList<E> {
+
     Node<E> first;
     Node<E> last;
-    int size = 0;
+    private int size = 0;
 
     private static class Node<E> {
 
@@ -22,6 +22,9 @@ public class MyLinkedClass<E> implements jav.sadasd.SimpleLinkedList<E> {
     public int size() {
         return size;
     }
+
+
+
     @Override
     public void add(int index, E element) throws RuntimeException {
         if (index < 0) {
@@ -44,28 +47,31 @@ public class MyLinkedClass<E> implements jav.sadasd.SimpleLinkedList<E> {
         temp.next = newNode;
         size++;
     }
+
+    //
     @Override
     public void remove(int index) throws RuntimeException {
-        if (first == null) return;
         if (index < 0 || index >= size) return;
-        Node current = first;
+        Node temp = first;
         int i = 0;
+
         while (i < index) {
-            current = current.next;
+            temp = temp.next;
             i++;
         }
-        if (current.next == null) {
-            current.prev.next = null;
-        } else if (current.prev == null) {
-            current = current.next;
-            current.prev = null;
-            first = current;
+        if (temp.next == null) {
+            temp.prev.next = null;
+        } else if (temp.prev == null) {
+            temp = temp.next;
+            temp.prev = null;
+            first = temp;
         } else {
-            current.prev.next = current.next;
-            current.next.prev = current.prev;
+            temp.prev.next = temp.next;
+            temp.next.prev = temp.prev;
         }
         size--;
     }
+
     @Override
     public void clear() {
         Node<E> i;
@@ -79,6 +85,7 @@ public class MyLinkedClass<E> implements jav.sadasd.SimpleLinkedList<E> {
         first = last = null;
         size = 0;
     }
+
     @Override
     public int indexOf(E element) throws RuntimeException {
         int index = 0;
@@ -98,8 +105,9 @@ public class MyLinkedClass<E> implements jav.sadasd.SimpleLinkedList<E> {
         }
         return -1;
     }
+
     private void addLast(E data) {
-        if ( size() == 0){
+        if ( size == 0){
             first = last = new Node<E>(null,data, null);
         } else {
             last.next = new Node<E>(last, data, null);
@@ -107,8 +115,10 @@ public class MyLinkedClass<E> implements jav.sadasd.SimpleLinkedList<E> {
         }
         size++;
     }
+
+
     private  void addFirst(E data) {
-        if ( size() == 0){
+        if ( size == 0){
             first = last = new Node<E>(null,data, null);
         } else {
             first.prev = new Node<E>(null, data, first);
