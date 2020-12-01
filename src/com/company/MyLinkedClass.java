@@ -53,21 +53,14 @@ public class MyLinkedClass<E> implements SimpleLinkedList<E> {
     public void remove(int index) throws RuntimeException {
         if (index < 0 || index >= size) return;
         Node temp = first;
-        int i = 0;
-
-        while (i < index) {
+        for (int i = 0; i < index; i++) {
             temp = temp.next;
-            i++;
         }
-        if (temp.next == null) {
-            temp.prev.next = null;
-        } else if (temp.prev == null) {
-            temp = temp.next;
-            temp.prev = null;
-            first = temp;
-        } else {
+        if (index == 0) {
+            first = temp.next;
+        }
+        else {
             temp.prev.next = temp.next;
-            temp.next.prev = temp.prev;
         }
         size--;
     }
